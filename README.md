@@ -22,6 +22,7 @@ The CSV file should be generated so that one column represents the label of the 
 ```
 USAGE
   $ node metadata-creator.js -f <filepath> -l <string> -t <string> [-o <filepath>]
+  
 OPTIONS
   -f, --file                   path to csv file to load
   
