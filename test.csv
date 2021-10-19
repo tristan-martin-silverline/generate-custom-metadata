@@ -1,0 +1,3 @@
+Label,Object__c,Platform_Event_Field_Name__c,Salesforce_Field_Name__c,Record_Type_Developer__c
+Preferred Email,Account,Email__c,Email__c,"PersonAccount,Non_Customer_Person"
+Spouse,Account,Spouse__c,Spouse__c,""
