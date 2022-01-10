@@ -21,15 +21,19 @@ The CSV file should be generated so that one column represents the label of the 
 #### Run The Command
 ```
 USAGE
-  $ node metadata-creator.js -f <filepath> -l <string> -t <string> [-o <filepath>]
+  $ node metadata-creator.js -f <filepath> -l <string> -t <string> [-o <filepath>] [-a <string>]
   
 OPTIONS
+  -a, --api-name               column header in csv that represents 
+                               the api name of the metadata record
+                               (defaults to label if not provided)
+
   -f, --file                   path to csv file to load
   
   -h, --help                   command reference
   
   -l, --label                  column header in csv that represents 
-                               the label of the metadata type
+                               the label of the metadata record
                                
   -o, --output-dir             path to output directory
   
@@ -38,4 +42,4 @@ OPTIONS
 ### Example
 **_Test.csv_** is included as an example in the repo. To run, execute the following command...
 
-`node metadata-creator.js -f test.csv -l Label -t Test__mdt`
+`node metadata-creator.js -f test.csv -l Label -t Test__mdt -a ApiName`

@@ -9,7 +9,8 @@ async function main() {
     program
         .version('0.0.1')
         .requiredOption('-f, --file <file>', 'name of the csv file')
-        .requiredOption('-l, --label <label>', 'the field in the csv file that represents the label of the custom metadata')
+        .requiredOption('-l, --label <label>', 'the field in the csv file that represents the label of the custom metadata record')
+        .option('-a, --api-name <api-name>', 'the field in the csv file that represents the api name of the custom metadata record')
         .requiredOption('-t, --metadata-type <type>', 'the api name of the metadata type to generate')
         .option('-o, --output-directory <directory>', 'the directory to output the generated Custom Metadata files', './output')
         .parse(process.argv);
@@ -24,10 +25,12 @@ async function main() {
         if (key !== args.label) metadataFields.push(key);
     }
 
-    createMetadataFiles(args.metadataType, args.label, metadataFields, rows, args.outputDirectory);
+    const apiName = !!args.apiName ? args.apiName : args.label;
+
+    createMetadataFiles(args.metadataType, args.label, apiName, metadataFields, rows, args.outputDirectory);
 }
 
-function createMetadataFiles(type, label, metadataFields, rows, outputDirectory) {
+function createMetadataFiles(type, label, apiName, metadataFields, rows, outputDirectory) {
     for (const row of rows) {
         const values = [];
         for (let i = 0; i < metadataFields.length; i++) {
@@ -63,7 +66,7 @@ function createMetadataFiles(type, label, metadataFields, rows, outputDirectory)
         };
         const options = {compact: true, ignoreComment: true, spaces: 4};
         const xml = convert.js2xml(metadataXML, options) + '\n';
-        const fileName = type + '.' + createValidFileName(row[label].substr(0, 40), '.md-meta.xml');
+        const fileName = type + '.' + createValidFileName(row[apiName].substr(0, 40), '.md-meta.xml');
         writeXMLFile(outputDirectory, fileName, xml);
     }
 }
