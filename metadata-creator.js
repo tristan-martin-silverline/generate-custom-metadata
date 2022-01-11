@@ -21,11 +21,12 @@ async function main() {
     const rows = await csv().fromFile(path);
 
     const metadataFields = [];
-    for (const key of Object.keys(rows[0])) {
-        if (key !== args.label) metadataFields.push(key);
-    }
 
     const apiName = !!args.apiName ? args.apiName : args.label;
+
+    for (const key of Object.keys(rows[0])) {
+        if (key !== args.label && key !== apiName) metadataFields.push(key);
+    }
 
     createMetadataFiles(args.metadataType, args.label, apiName, metadataFields, rows, args.outputDirectory);
 }
